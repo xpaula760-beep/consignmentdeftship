@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@import "leaflet/dist/leaflet.css";
+
+/* Global vertical padding for sections (30px top and bottom) */
+section {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+/* If you want to opt-out for specific sections, add the class `no-vertical-padding` */
+.no-vertical-padding {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/* Global paragraph style per design spec: Satoshi 400, 16px, 24px line-height */
+p {
+	font-family: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	font-style: normal;
+	font-weight: 400 !important;
+	color: rgb(0, 0, 0) !important;
+	font-size: 16px !important;
+	line-height: 24px !important;
+}
+
+@keyframes recordsPulseOnce {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
