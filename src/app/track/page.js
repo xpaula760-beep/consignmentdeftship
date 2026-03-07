@@ -39,7 +39,7 @@ function PackageDetails({ pkg }) {
 
   return (
     <div className="max-w-2xl mx-auto bg-slate-900 rounded-xl shadow p-6 text-white">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col md:flex-row items-start justify-between gap-4">
         <div>
           <h2 className="text-xl font-semibold">{pkg.itemName}</h2>
 
@@ -62,7 +62,7 @@ function PackageDetails({ pkg }) {
           </div>
         </div>
 
-        <div className="flex flex-col items-end gap-2">
+        <div className="flex flex-row md:flex-col md:items-end items-start gap-2">
           <StatusBadge status={pkg.status} />
           <button
             onClick={() => copy(pkg.trackingNumber)}
@@ -137,7 +137,7 @@ export default function TrackPackagePage() {
           Track Your Package
         </h1>
 
-        <form onSubmit={handleSearch} className="flex gap-2 mb-6">
+        <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2 mb-6">
           <input
             className="flex-1 px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-400"
             placeholder="Enter tracking number"
@@ -145,7 +145,7 @@ export default function TrackPackagePage() {
             onChange={(e) => setTrackingNumber(e.target.value)}
           />
 
-          <button className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500">
+          <button className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 w-full sm:w-auto">
             {loading ? "Searching..." : "Track"}
           </button>
         </form>
@@ -172,19 +172,19 @@ export default function TrackPackagePage() {
             </div>
 
             {pkg.origin?.lat && pkg.destination?.lat && (
-              <div className="mt-6 max-w-3xl mx-auto h-72 rounded overflow-hidden">
+              <div className="mt-6 max-w-3xl mx-auto h-56 md:h-72 rounded overflow-hidden">
                 <PlaneTrackingMap pkg={pkg} />
               </div>
             )}
 
             {showDetails && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4">
                 <div
                   className="absolute inset-0 bg-black/70"
                   onClick={() => setShowDetails(false)}
                 />
 
-                <div className="relative w-full max-w-3xl bg-slate-900 rounded-xl p-6 z-10 max-h-[90vh] overflow-auto text-white">
+                <div className="relative w-full max-w-3xl rounded-t-xl md:rounded-xl bg-slate-900 p-4 md:p-6 z-10 max-h-[95vh] md:max-h-[90vh] overflow-auto text-white">
                   <button
                     className="absolute top-3 right-3 p-2"
                     onClick={() => setShowDetails(false)}

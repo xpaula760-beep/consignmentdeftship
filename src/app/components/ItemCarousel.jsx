@@ -14,14 +14,19 @@ export default function ItemCarousel({ items = [], currency = "USD" }) {
   const go = (dir) => setIndex((i) => clamp(i + dir));
 
   const onStart = (e) => {
-    startX.current = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientX = e.touches ? e.touches[0].clientX : (e.clientX ?? (e.nativeEvent && e.nativeEvent.clientX));
+    startX.current = clientX;
   };
 
   const onEnd = (e) => {
     if (startX.current == null) return;
-    const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const endX = e.changedTouches ? e.changedTouches[0].clientX : (e.clientX ?? (e.nativeEvent && e.nativeEvent.clientX));
     const diff = endX - startX.current;
     if (Math.abs(diff) > 50) diff < 0 ? go(1) : go(-1);
+    startX.current = null;
+  };
+
+  const onCancel = () => {
     startX.current = null;
   };
 
@@ -29,9 +34,12 @@ export default function ItemCarousel({ items = [], currency = "USD" }) {
     <div className="w-full max-w-xl mx-auto">
       {/* IMAGE AREA */}
       <div
-        className="relative h-105 rounded-xl overflow-hidden bg-black"
+        className="relative h-64 md:h-96 rounded-xl overflow-hidden bg-black"
         onTouchStart={onStart}
         onTouchEnd={onEnd}
+        onPointerDown={onStart}
+        onPointerUp={onEnd}
+        onPointerCancel={onCancel}
         onMouseDown={onStart}
         onMouseUp={onEnd}
       >
@@ -61,7 +69,7 @@ export default function ItemCarousel({ items = [], currency = "USD" }) {
                   <img
                     src={img}
                     alt={it.name}
-                    className="h-[85%] object-contain drop-shadow-xl"
+                    className="max-h-[70%] md:max-h-[85%] object-contain drop-shadow-xl"
                     onError={(e) =>
                       (e.currentTarget.src =
                         "https://via.placeholder.com/400x600?text=No+Image")
@@ -75,19 +83,21 @@ export default function ItemCarousel({ items = [], currency = "USD" }) {
           })}
         </div>
 
-        {/* SWIPE ARROWS */}
+        {/* ARROW CONTROLS (large touch targets) */}
         <button
           onClick={() => go(-1)}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-white text-sm uppercase tracking-wider opacity-80 hover:opacity-100"
+          aria-label="Previous"
+          className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center opacity-90 hover:opacity-100"
         >
-          ← Swipe
+          ‹
         </button>
 
         <button
           onClick={() => go(1)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-white text-sm uppercase tracking-wider opacity-80 hover:opacity-100"
+          aria-label="Next"
+          className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center opacity-90 hover:opacity-100"
         >
-          Swipe →
+          ›
         </button>
       </div>
 
@@ -114,7 +124,8 @@ export default function ItemCarousel({ items = [], currency = "USD" }) {
           <button
             key={i}
             onClick={() => setIndex(i)}
-            className={`w-2.5 h-2.5 rounded-full transition ${
+            aria-label={`Go to slide ${i + 1}`}
+            className={`rounded-full p-2 -m-1 transition ${
               i === index ? "bg-black" : "bg-zinc-300"
             }`}
           />
