@@ -1,78 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 
 export default function Records() {
-  // Smaller, compact stats suitable for dashboard widgets
-  const initialStats = [
-    { label: "Packages Delivered", value: 1.2, type: "millions" },
-    { label: "Active Clients", value: 3328, type: "number" },
-    { label: "Countries Covered", value: 120, type: "number-plus" },
-    { label: "On-time Delivery %", value: 97, type: "percent" },
+  const stats = [
+    { value: "89%", label: "Potential Savings on Shipments" },
+    { value: "3,382", label: "Number of Merchants" },
+    { value: "7,041,310", label: "Potential Savings on Shipments" },
   ];
-
-  const [stats, setStats] = useState(
-    initialStats.map((s) => ({
-      ...s,
-      change: "+0%",
-      trend: "up",
-      pulseId: 0,
-    }))
-  );
-
-  const timeoutRef = useRef(null);
-
-  const formatValue = (stat) => {
-    if (stat.type === "millions") {
-      return `${stat.value.toFixed(1)}M+`;
-    }
-    if (stat.type === "percent") {
-      return `${Math.round(stat.value)}%`;
-    }
-    if (stat.type === "number-plus") {
-      return `${Math.round(stat.value).toLocaleString()}+`;
-    }
-    return `${Math.round(stat.value).toLocaleString()}`;
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const tick = () => {
-      const delay = Math.floor(3000 + Math.random() * 3000);
-      timeoutRef.current = setTimeout(() => {
-        if (!isMounted) return;
-
-        setStats((prev) =>
-          prev.map((stat) => {
-            const delta = (Math.random() * 0.04 + 0.01) * (Math.random() < 0.5 ? -1 : 1);
-            const nextRaw = stat.value * (1 + delta);
-            const nextValue = stat.type === "percent" ? Math.min(100, Math.max(0, nextRaw)) : Math.max(0, nextRaw);
-            const changePercent = stat.value > 0 ? Math.round(Math.abs(delta) * 100) : 0;
-            const trend = delta >= 0 ? "up" : "down";
-
-            return {
-              ...stat,
-              value: nextValue,
-              change: `${delta >= 0 ? "+" : "-"}${changePercent}%`,
-              trend,
-              pulseId: Date.now() + Math.random(),
-            };
-          })
-        );
-
-        tick();
-      }, delay);
-    };
-
-    tick();
-
-    return () => {
-      isMounted = false;
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
 
   // images[0] = phone, images[1] & images[2] = QR/barcode images
   const images = [
@@ -100,44 +35,25 @@ export default function Records() {
           </p>
         </div>
 
-        {/* Compact stat widgets: white cards with black text (keeps sizes) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((s, i) => {
-            const trendStyles =
-              s.trend === "up"
-                ? { badge: "bg-emerald-100 text-emerald-800", arrow: "▲" }
-                : { badge: "bg-red-100 text-red-800", arrow: "▼" };
-            return (
-              <div
-                key={i}
-                className="bg-white text-black rounded-xl p-4 border border-zinc-100 hover:shadow-md hover:scale-[1.02] transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-between"
-                /* Stat cards remain white/black per spec */
-              >
-                <div>
-                  {/* Big number: slightly larger for emphasis */}
-                  <div
-                    className="text-2xl md:text-3xl font-bold"
-                    style={{
-                      transition: "all 0.6s ease",
-                      animation: `recordsPulseOnce 0.6s ease ${s.pulseId}ms`,
-                    }}
-                  >
-                    {formatValue(s)}
-                  </div>
-                  <div className="text-sm text-black/70 mt-1">{s.label}</div>
-                </div>
-
-                {/* percent badge keeps colored indicator */}
+        {/* Stats cards */}
+        <div className="flex justify-center mt-6">
+          <div className="border-2 border-[#0B2A6F] rounded-md p-4">
+            <div className="grid grid-cols-3 gap-4">
+              {stats.map((stat, i) => (
                 <div
-                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${trendStyles.badge}`}
-                  style={{ transition: "all 0.6s ease" }}
+                  key={i}
+                  className="bg-white text-black rounded-md p-4 border border-zinc-100 flex flex-col justify-center min-w-45"
                 >
-                  <span className="font-semibold">{trendStyles.arrow}</span>
-                  <span className="leading-none">{s.change}</span>
+                  <h4 className="text-3xl md:text-4xl font-extrabold text-black leading-tight">
+                    {stat.value}
+                  </h4>
+                  <p className="text-sm font-semibold text-black/70 mt-2">
+                    {stat.label}
+                  </p>
                 </div>
-              </div>
-            );
-          })}
+              ))}
+            </div>
+          </div>
         </div>
 
         {/*

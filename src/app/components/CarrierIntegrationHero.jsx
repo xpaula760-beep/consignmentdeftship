@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CarrierIntegrationHero() {
   return (
@@ -29,13 +30,10 @@ export default function CarrierIntegrationHero() {
             </p>
 
             {/* CTA */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 sm:justify-center md:justify-start">
-              <button className="rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800 transition">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/get-started" className="rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-zinc-800 transition inline-flex items-center justify-center">
                 Get Started
-              </button>
-              <button className="rounded-md border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition">
-                Learn More
-              </button>
+              </Link>
             </div>
           </div>
 

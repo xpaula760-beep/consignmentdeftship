@@ -72,9 +72,9 @@ export default function Hero() {
 
               {/* CTA Buttons */}
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-start">
-                <button className="rounded-md bg-[#443bb0] px-8 py-4 text-white text-sm font-semibold hover:bg-[#362f8e] transition-colors shadow-sm">
+                <Link href="/get-started" className="rounded-md bg-[#443bb0] px-8 py-4 text-white text-sm font-semibold hover:bg-[#362f8e] transition-colors shadow-sm inline-flex items-center justify-center">
                   Get Started
-                </button>
+                </Link>
 
                 <Link
                   href="/track"
