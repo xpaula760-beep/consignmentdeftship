@@ -11,7 +11,6 @@ export default function AdminSidebar({ open = false, onClose = () => {} }) {
           <Link className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/dashboard">Dashboard</Link>
           <Link className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/packages">Packages</Link>
           <Link className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/admins">Admins</Link>
-          <Link className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/settings">Settings</Link>
         </nav>
       </aside>
 
@@ -30,7 +29,6 @@ export default function AdminSidebar({ open = false, onClose = () => {} }) {
               <Link onClick={onClose} className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/dashboard">Dashboard</Link>
               <Link onClick={onClose} className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/packages">Packages</Link>
               <Link onClick={onClose} className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/admins">Admins</Link>
-              <Link onClick={onClose} className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/settings">Settings</Link>
             </nav>
           </aside>
         </div>
