@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "e2e": "node ./tests/e2e/admin-login-test.js",
     "lint": "eslint"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "puppeteer-core": "^20.9.0"
   }
 }

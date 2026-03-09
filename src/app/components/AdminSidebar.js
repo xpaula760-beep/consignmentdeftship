@@ -1,7 +1,23 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function AdminSidebar({ open = false, onClose = () => {} }) {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch((process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, "") : "") + "/api/auth/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+    } catch (e) {
+      // ignore network errors
+    }
+    // navigate to login page
+    router.push('/admin/login');
+  };
+
   return (
     <>
       {/* Desktop static sidebar */}
@@ -11,6 +27,7 @@ export default function AdminSidebar({ open = false, onClose = () => {} }) {
           <Link className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/dashboard">Dashboard</Link>
           <Link className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/packages">Packages</Link>
           <Link className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/admins">Admins</Link>
+          <button onClick={handleLogout} className="mt-3 text-left rounded px-2 py-1 hover:bg-zinc-100">Logout</button>
         </nav>
       </aside>
 
@@ -29,6 +46,7 @@ export default function AdminSidebar({ open = false, onClose = () => {} }) {
               <Link onClick={onClose} className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/dashboard">Dashboard</Link>
               <Link onClick={onClose} className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/packages">Packages</Link>
               <Link onClick={onClose} className="rounded px-2 py-1 hover:bg-zinc-100" href="/admin/admins">Admins</Link>
+              <button onClick={() => { onClose(); handleLogout(); }} className="mt-3 text-left rounded px-2 py-1 hover:bg-zinc-100">Logout</button>
             </nav>
           </aside>
         </div>

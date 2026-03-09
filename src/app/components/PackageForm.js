@@ -11,6 +11,12 @@ export default function PackageForm({ onSubmit, loading }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // client-side validation to match backend expectations
+    if (!itemName || itemName.length < 2) return alert('Item name is required (min 2 chars)');
+    if (!description || description.length < 10) return alert('Description is required (min 10 chars)');
+    if (!receiverPhone || receiverPhone.length < 7) return alert('Receiver phone is required (min 7 chars)');
+    if (!deliveryTime) return alert('Delivery time is required');
+
     const form = new FormData();
     form.append("itemName", itemName);
     form.append("description", description);

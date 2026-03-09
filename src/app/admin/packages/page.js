@@ -30,9 +30,17 @@ export default function AdminPackages() {
 
   const handleCreate = async (formData) => {
     setLoading(true);
-    await createPackage(formData);
-    setLoading(false);
-    loadPackages();
+    try {
+      await createPackage(formData);
+      loadPackages();
+    } catch (err) {
+      // show a user-friendly error
+      const msg = err?.response?.data?.message || (err?.response?.data?.errors ? err.response.data.errors.join('; ') : err.message || 'Create failed');
+      console.error('Create package failed:', msg);
+      alert('Create failed: ' + msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCopy = async (text, id) => {
