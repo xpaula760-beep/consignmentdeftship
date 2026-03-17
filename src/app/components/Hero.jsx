@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 const Carousel = dynamic(() => import("./Carousel"), { ssr: false });
@@ -56,7 +55,7 @@ export default function Hero() {
 
             {/* Text Content */}
             <div className="order-2 md:order-1 text-left">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl leading-tight md:leading-[1.1] font-bold tracking-tight text-[#252836]">
+              <h1 className="text-[40px] leading-11 md:text-[60px] md:leading-16 font-bold tracking-tight text-[#252836]">
                 Streamline your shipping with our all-in-one solution for{" "}
                 <span className="block mt-2 text-[#443bb0] transition-all duration-500 ease-in-out">
                   {PHRASES[index]}
@@ -72,16 +71,13 @@ export default function Hero() {
 
               {/* CTA Buttons */}
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-start">
-                <Link href="/get-started" className="rounded-md bg-[#443bb0] px-8 py-4 text-white text-sm font-semibold hover:bg-[#362f8e] transition-colors shadow-sm inline-flex items-center justify-center">
+                <button className="rounded-md bg-[#443bb0] px-8 py-4 text-white text-sm font-semibold hover:bg-[#362f8e] transition-colors shadow-sm">
                   Get Started
-                </Link>
+                </button>
 
-                <Link
-                  href="/track"
-                  className="rounded-md border border-zinc-300 px-8 py-4 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors"
-                >
+                <button className="rounded-md border border-zinc-300 px-8 py-4 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors">
                   Track a Package
-                </Link>
+                </button>
               </div>
             </div>
           </div>

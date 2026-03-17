@@ -1,8 +1,6 @@
 import axios from "axios";
 
-// If NEXT_PUBLIC_API_URL is set use it; otherwise default to a relative `/api` so
-// the client will call the same origin in production (avoids 'undefined' in URLs).
-const rawBase = process.env.NEXT_PUBLIC_API_URL || "";
+const rawBase = process.env.NEXT_PUBLIC_PACKAGES_API_URL || "";
 const normalizedBase = rawBase ? rawBase.replace(/\/$/, "") + "/api" : "/api";
 
 const api = axios.create({

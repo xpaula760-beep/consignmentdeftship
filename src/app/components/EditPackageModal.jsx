@@ -73,6 +73,15 @@ export default function EditPackageModal({ id, onClose, onSaved }) {
                     <div className="w-full h-28 bg-zinc-50 flex items-center justify-center text-zinc-400">No images</div>
                   )}
                 </div>
+
+                {pkg.videos && pkg.videos.length ? (
+                  <div className="mt-4 space-y-2">
+                    <h5 className="text-sm font-medium">Videos</h5>
+                    {pkg.videos.map((video, i) => (
+                      <video key={video.public_id || i} controls className="w-full rounded border bg-black" src={video.secure_url} />
+                    ))}
+                  </div>
+                ) : null}
               </div>
 
               <div className="p-3 border rounded">
@@ -82,7 +91,7 @@ export default function EditPackageModal({ id, onClose, onSaved }) {
                     <div key={idx} className="flex items-center gap-3 border-b last:border-b-0 pb-2">
                       <div className="w-12 h-12 bg-zinc-100 rounded overflow-hidden">
                         {it.images && it.images[0] ? (
-                          <img src={it.images[0].secure_url} className="w-full h-full object-cover" />
+                          <img src={it.images[0].secure_url} className="w-full h-full object-cover" alt={it.name || `Item ${idx + 1}`} />
                         ) : null}
                       </div>
                       <div className="flex-1 text-sm">
@@ -102,7 +111,7 @@ export default function EditPackageModal({ id, onClose, onSaved }) {
             <div>
               <button className="btn-danger mr-2" onClick={handleDelete} disabled={loading}>Delete</button>
             </div>
-            <div className="text-sm text-zinc-500">Use the form's Save button to persist changes.</div>
+            <div className="text-sm text-zinc-500">Use the form&apos;s Save button to persist changes.</div>
           </div>
         </div>
       </div>

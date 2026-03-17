@@ -195,6 +195,17 @@ export default function TrackPackagePage() {
                   <h3 className="text-lg font-semibold mb-4">Package Items</h3>
 
                   <ItemCarousel items={pkg.items} currency={pkg.currency} />
+
+                  {pkg.videos && pkg.videos.length ? (
+                    <div className="mt-6">
+                      <h3 className="text-lg font-semibold mb-4">Package Videos</h3>
+                      <div className="grid gap-4 md:grid-cols-2">
+                        {pkg.videos.map((video, index) => (
+                          <video key={video.public_id || index} controls className="w-full rounded-lg bg-black" src={video.secure_url} />
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             )}

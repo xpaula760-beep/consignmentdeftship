@@ -18,6 +18,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
+## Package uploads with Cloudinary
+
+The admin package flow now uses an in-app `/api/packages` backend and supports Cloudinary uploads for package videos and images.
+
+1. Copy [.env.example](.env.example) to `.env.local`.
+2. Fill in these required Cloudinary variables:
+	- `CLOUDINARY_CLOUD_NAME`
+	- `CLOUDINARY_API_KEY`
+	- `CLOUDINARY_API_SECRET`
+3. Leave `NEXT_PUBLIC_PACKAGES_API_URL` empty to use the built-in Next.js package API.
+4. Restart the dev server after updating environment variables.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
