@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 const Carousel = dynamic(() => import("./Carousel"), { ssr: false });
@@ -75,9 +76,12 @@ export default function Hero() {
                   Get Started
                 </button>
 
-                <button className="rounded-md border border-zinc-300 px-8 py-4 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors">
+                <Link
+                  href="/track"
+                  className="rounded-md border border-zinc-300 px-8 py-4 text-center text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-50"
+                >
                   Track a Package
-                </button>
+                </Link>
               </div>
             </div>
           </div>
