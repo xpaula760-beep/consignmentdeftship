@@ -27,15 +27,24 @@ const isVideoAsset = (asset) => {
 
 const extractPackageVideos = (pkg) => {
   const explicitVideos = Array.isArray(pkg?.videos) ? pkg.videos : [];
-  const fallbackVideos = (Array.isArray(pkg?.images) ? pkg.images : []).filter(isVideoAsset);
+  const packageImages = Array.isArray(pkg?.images) ? pkg.images : [];
+  const itemImages = Array.isArray(pkg?.items) ? pkg.items.flatMap((it) => (Array.isArray(it.images) ? it.images : [])) : [];
+  const fallbackVideos = [...packageImages, ...itemImages].filter(isVideoAsset);
+
   return [...explicitVideos, ...fallbackVideos].filter((asset, index, list) => {
     const url = asset?.secure_url;
     return url && list.findIndex((entry) => entry?.secure_url === url) === index;
   });
 };
 
-const extractPackageImages = (pkg) =>
-  (Array.isArray(pkg?.images) ? pkg.images : []).filter((asset) => asset?.secure_url && !isVideoAsset(asset));
+const extractPackageImages = (pkg) => {
+  const packageImages = Array.isArray(pkg?.images) ? pkg.images : [];
+  const itemImages = Array.isArray(pkg?.items) ? pkg.items.flatMap((it) => (Array.isArray(it.images) ? it.images : [])) : [];
+  const candidates = [...packageImages, ...itemImages];
+  return candidates
+    .filter((asset) => asset?.secure_url && !isVideoAsset(asset))
+    .filter((asset, index, list) => list.findIndex((entry) => entry?.secure_url === asset?.secure_url) === index);
+};
 
 const formatCurrency = (amount, currency = "USD") => {
   if (typeof amount !== "number") return "—";
