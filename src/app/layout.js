@@ -32,25 +32,20 @@ export default function RootLayout({ children }) {
       >
         {process.env.NODE_ENV === "production" && (
           <Script
-            id="smartsupp-live-chat"
+            id="tawk-live-chat"
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
-              __html: `
-                var _smartsupp = window._smartsupp || {};
-                _smartsupp.key = 'b4f3de85fcdab68282fbd58035c28b27860fa233';
-                window._smartsupp = _smartsupp;
-                window.smartsupp || (function(d) {
-                  var s, c, o = window.smartsupp = function() { o._.push(arguments); };
-                  o._ = [];
-                  s = d.getElementsByTagName('script')[0];
-                  c = d.createElement('script');
-                  c.type = 'text/javascript';
-                  c.charset = 'utf-8';
-                  c.async = true;
-                  c.src = 'https://www.smartsuppchat.com/loader.js?';
-                  s.parentNode.insertBefore(c, s);
-                })(document);
-              `,
+              __html: `<!--Start of Tawk.to Script-->
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69e038da3937ef1c2e296e1e/1jm9ts67n';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+<!--End of Tawk.to Script-->`,
             }}
           />
         )}
@@ -60,7 +55,7 @@ export default function RootLayout({ children }) {
           <Footer />
         </AuthProvider>
         <noscript>
-          Powered by <a href="https://www.smartsupp.com" target="_blank" rel="noreferrer">Smartsupp</a>
+          Live chat enabled by <a href="https://www.tawk.to" target="_blank" rel="noreferrer">Tawk.to</a>
         </noscript>
       </body>
     </html>
