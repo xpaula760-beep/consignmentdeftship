@@ -14,6 +14,7 @@ import {
 
 export default function AdminPackages() {
   const [packages, setPackages] = useState([]);
+  const [viewPaymentsFor, setViewPaymentsFor] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -131,6 +132,13 @@ export default function AdminPackages() {
                     </button>
 
                     <button
+                      onClick={() => setViewPaymentsFor(pkg)}
+                      className="border rounded px-2 py-1"
+                    >
+                      Payments
+                    </button>
+
+                    <button
                       onClick={() => deletePackage(pkg._id).then(loadPackages)}
                       className="border rounded px-2 py-1 text-red-600"
                     >
@@ -158,6 +166,41 @@ export default function AdminPackages() {
           onSaved={loadPackages}
         />
       )}
+
+      {viewPaymentsFor && (
+        <PaymentsModal pkg={viewPaymentsFor} onClose={() => setViewPaymentsFor(null)} onRefresh={loadPackages} />
+      )}
+    </div>
+  );
+}
+
+function PaymentsModal({ pkg, onClose, onRefresh }) {
+  const [verifying, setVerifying] = useState(false);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4" onClick={onClose}>
+      <div className="max-h-dvh w-full overflow-auto rounded-t-3xl bg-white shadow-xl sm:max-h-[90vh] sm:max-w-2xl sm:rounded-lg" onClick={(e) => e.stopPropagation()}>
+        <div className="sticky top-0 flex items-center justify-between border-b bg-white px-4 py-4 sm:px-6">
+          <h2 className="text-xl font-bold">Payments — {pkg.trackingNumber}</h2>
+          <button onClick={onClose} className="text-2xl text-zinc-500 hover:text-zinc-900">×</button>
+        </div>
+        <div className="p-4">
+          {(!pkg.payments || pkg.payments.length === 0) && <div className="text-zinc-500">No payments submitted yet.</div>}
+
+          {pkg.payments && pkg.payments.map((p) => (
+            <div key={p.id} className="border-b py-3">
+              <div className="text-sm text-zinc-500">{new Date(p.createdAt).toLocaleString()}</div>
+              <div className="font-mono text-sm break-all">{p.txHash}</div>
+              <div className="text-xs text-zinc-600">Address: {p.address}</div>
+            </div>
+          ))}
+
+          <div className="mt-4 flex gap-2">
+            <button onClick={onClose} className="px-3 py-2 border rounded">Close</button>
+            <button onClick={() => { setVerifying(true); /* optional: mark status or notify */ setTimeout(()=>{ setVerifying(false); onRefresh(); onClose(); }, 800); }} className="px-3 py-2 bg-green-600 text-white rounded">Mark Verified</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

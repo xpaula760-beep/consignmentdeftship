@@ -29,6 +29,18 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
+    try {
+      const path = typeof window !== 'undefined' ? window.location.pathname : '';
+      if (path && path.startsWith('/paynow')) {
+        // Public page - skip auth refresh to avoid unnecessary 401s for public visitors
+        setAdmin(null);
+        setLoading(false);
+        return;
+      }
+    } catch (e) {
+      // ignore
+    }
+
     refresh();
   }, []);
 

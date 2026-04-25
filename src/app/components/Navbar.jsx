@@ -12,6 +12,7 @@ export default function Navbar() {
             width={140}
             height={36}
             className="h-9 w-auto"
+            style={{ width: 'auto' }}
             priority
           />
         </Link>

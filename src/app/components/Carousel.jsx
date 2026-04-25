@@ -53,26 +53,7 @@ export default function ManageShipmentsSection() {
         </div>
       </div>
 
-      <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-
-        .animate-marquee-fast {
-          animation: marquee 25s linear infinite;
-        }
-
-        /* Pause on hover for better UX */
-        .group:hover .animate-marquee,
-        .group:hover .animate-marquee-fast {
-          animation-play-state: paused;
-        }
-      `}</style>
+      {/* animations are defined in global CSS (globals.css) to avoid styled-jsx issues with Turbopack */}
     </section>
   );
 }

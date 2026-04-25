@@ -120,3 +120,8 @@ export const clearPackageLocation = async (id) => {
   const res = await api.delete(`/packages/${id}/location`);
   return res.data;
 };
+
+export const submitPayment = async (id, { txHash, address, payer }) => {
+  const res = await api.post(`/packages/${id}/payment`, { txHash, address, payer });
+  return res.data;
+};
