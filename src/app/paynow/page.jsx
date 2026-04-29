@@ -15,6 +15,7 @@ export default function PaymentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [copiedAmount, setCopiedAmount] = useState(false);
+  const [searching, setSearching] = useState(false);
 
   // Timer Logic
   useEffect(() => {
@@ -92,6 +93,7 @@ export default function PaymentPage() {
 
   const handleSearch = async () => {
     if (!tracking.trim()) return alert("Please enter a tracking number.");
+    setSearching(true);
     try {
       const data = await fetchPackageByTrackingNumber(tracking.trim());
       if (!data) return alert("Package not found.");
@@ -99,6 +101,8 @@ export default function PaymentPage() {
       setStep("details");
     } catch (err) {
       alert("Error retrieving package. Check your connection.");
+    } finally {
+      setSearching(false);
     }
   };
 
@@ -205,8 +209,22 @@ export default function PaymentPage() {
               placeholder="e.g. DFT-12345678"
               className="w-full p-4 rounded-xl bg-zinc-50 border border-zinc-200 mb-6 text-lg font-mono focus:ring-2 focus:ring-black outline-none transition-all"
             />
-            <button onClick={handleSearch} className="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-zinc-800 transition-transform active:scale-[0.98]">
-              Retrieve Package Info
+            <button
+              onClick={handleSearch}
+              disabled={searching}
+              className={`w-full bg-black text-white font-bold py-4 rounded-xl transition-transform active:scale-[0.98] ${searching ? 'opacity-60 cursor-not-allowed' : 'hover:bg-zinc-800'}`}
+            >
+              {searching ? (
+                <span className="flex items-center justify-center gap-3">
+                  <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                  </svg>
+                  Retrieving...
+                </span>
+              ) : (
+                'Retrieve Package Info'
+              )}
             </button>
           </div>
         )}

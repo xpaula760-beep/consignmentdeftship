@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Required: Shipping Fee Payment - Deftship</title>
+  <style>
+    body { 
+      margin: 0; 
+      padding: 0; 
+      background-color: #f9fafb; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+      color: #000000; 
+    }
+    .wrapper { width: 100%; table-layout: fixed; background-color: #f9fafb; padding-bottom: 40px; }
+    .main { 
+      background-color: #ffffff; 
+      max-width: 600px; 
+      margin: 30px auto; 
+      border-radius: 12px; 
+      border: 1px solid #e5e7eb; 
+      overflow: hidden; 
+    }
+    
+    /* Header */
+    .header { padding: 32px 40px 20px; text-align: left; }
+    .logo { width: 110px; height: auto; display: block; }
+
+    /* Content */
+    .content { padding: 0 40px 40px; }
+    .status-badge { 
+      display: inline-block; 
+      background-color: #fff7ed; 
+      color: #c2410c; 
+      padding: 6px 12px; 
+      border-radius: 20px; 
+      font-size: 13px; 
+      font-weight: 600; 
+      margin-bottom: 16px; 
+    }
+    h1 { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #111827; }
+    p { font-size: 15px; line-height: 1.6; color: #374151; margin-bottom: 24px; }
+
+    /* Info Grid */
+    .info-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+    .info-table td { padding: 12px 0; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
+    .label { font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+    .value { font-size: 15px; color: #111827; font-weight: 500; text-align: right; }
+
+    /* Action Box */
+    .action-box { 
+      background-color: #453BB1; 
+      padding: 32px; 
+      border-radius: 12px; 
+      text-align: center; 
+      color: #ffffff; 
+    }
+    .action-box h2 { margin: 0 0 8px; font-size: 18px; color: #ffffff; }
+    .action-box p { color: #e0e7ff; font-size: 14px; margin-bottom: 24px; }
+    
+    /* Buttons */
+    .btn-pay { 
+      background-color: #ffffff; 
+      color: #453BB1; 
+      padding: 14px 28px; 
+      text-decoration: none; 
+      border-radius: 8px; 
+      font-weight: 700; 
+      display: inline-block; 
+      margin-right: 10px;
+    }
+    .btn-track { 
+      background-color: transparent; 
+      color: #ffffff; 
+      padding: 13px 27px; 
+      text-decoration: none; 
+      border-radius: 8px; 
+      font-weight: 600; 
+      display: inline-block; 
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    /* Footer */
+    .footer { text-align: center; font-size: 12px; color: #9ca3af; padding: 20px; }
+
+    @media only screen and (max-width: 600px) {
+      .content { padding: 0 20px 30px; }
+      .header { padding: 25px 20px; }
+      .btn-pay, .btn-track { display: block; margin: 10px 0; width: 100%; box-sizing: border-box; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="header">
+        <img src="https://res.cloudinary.com/daeovybod/image/upload/v1777445827/images-removebg-preview_2_d5cpag.png" alt="Deftship" class="logo">
+      </div>
+      
+      <div class="content">
+        <div class="status-badge">PAYMENT PENDING</div>
+        <h1>Action Required: Shipping Fee</h1>
+        <p>Hello {{name}},</p>
+        <p>Your package from <strong>Los Angeles, CA</strong> is currently in our system. However, the status is <strong>Pending</strong> as we have not yet received the shipping fee for this delivery.</p>
+
+        <table class="info-table">
+          <tr>
+            <td class="label">Tracking Number</td>
+            <td class="value">{{tracking}}</td>
+          </tr>
+          <tr>
+            <td class="label">Destination</td>
+            <td class="value">{{destination}}</td>
+          </tr>
+          <tr>
+            <td class="label">Phone Number</td>
+            <td class="value">{{phone}}</td>
+          </tr>
+          <tr>
+            <td class="label">Est. Delivery</td>
+            <td class="value">{{eta}}</td>
+          </tr>
+        </table>
+
+        <div class="action-box">
+          <h2>Total Fee: ${{fee}}</h2>
+          <p>Please complete your payment to clear the package for immediate dispatch.</p>
+          <a href="{{pay_url}}" class="btn-pay">Pay Now</a>
+          <a href="https://www.deftship.site/track" class="btn-track">Track Package</a>
+        </div>
+        <p style="margin-top:16px;color:#374151;font-size:14px;">You can reply directly to this email or contact our live support for further assistance regarding your package.</p>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2026 Deftship Logistics. All rights reserved.<br>
+      This is an automated security notification regarding your shipment.</p>
+    </div>
+  </div>
+</body>
+</html>
